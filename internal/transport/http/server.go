@@ -43,8 +43,6 @@ func NewService(context context.Context, db *sqlx.DB, endpoint *endpoint.Endpoin
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
-	r.GET("/v1/health", rest.HealthCheckHandler)
-
 	v1 := r.Group("v1")
 	v1.Use(validateAPIKey(rest))
 	{

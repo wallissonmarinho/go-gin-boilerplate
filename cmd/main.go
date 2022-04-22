@@ -15,7 +15,6 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 
-	"github.com/wallissonmarinho/go-gin-boilerplate/internal/client"
 	"github.com/wallissonmarinho/go-gin-boilerplate/internal/endpoint"
 	"github.com/wallissonmarinho/go-gin-boilerplate/internal/service"
 	trans "github.com/wallissonmarinho/go-gin-boilerplate/internal/transport/http"
@@ -76,8 +75,7 @@ func main() {
 
 	var (
 		context    context.Context
-		clients    = client.NewClients()
-		services   = service.NewServiceFactory(db, logger, clients)
+		services   = service.NewServiceFactory(db, logger)
 		endpoint   = endpoint.MakeEndpoints(services, logger)
 		serverHTTP = trans.NewService(context, db, &endpoint, &logger)
 		httpAddr   = flag.String("http.addr", ":1707", "HTTP listen address")
