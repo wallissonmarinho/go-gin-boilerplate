@@ -12,6 +12,7 @@ import (
 	"github.com/go-kit/log"
 	"github.com/jmoiron/sqlx"
 	"github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 	"github.com/wallissonmarinho/go-gin-boilerplate/internal/endpoint"
 	usersRepository "github.com/wallissonmarinho/go-gin-boilerplate/internal/repository/users"
 	"gopkg.in/guregu/null.v4"
@@ -49,10 +50,9 @@ func NewService(context context.Context, db *sqlx.DB, endpoint *endpoint.Endpoin
 		v1.GET("/health", rest.HealthCheckHandler)
 	}
 
-	// port := os.Getenv("PORT")
+	port := os.Getenv("PORT")
 
-	// err = r.Run(fmt.Sprintf("%s:%s", "0.0.0.0", port))
-	err = r.Run(":8080")
+	err = r.Run(fmt.Sprintf("%s:%s", "0.0.0.0", port))
 
 	logrus.Error(err)
 
@@ -63,7 +63,7 @@ func validateAPIKey(rest *server) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		APIKey := c.Request.Header.Get("X-API-Key")
 
-		keyHash := fmt.Sprintf("%s:%s", APIKey, "secret") // os.Getenv("secret")
+		keyHash := fmt.Sprintf("%s:%s", APIKey, viper.GetString("boilerplate_secret"))
 
 		h := sha256.New()
 

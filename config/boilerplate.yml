@@ -1,3 +1,5 @@
 db_config: host=localhost port=5432 user=postgres dbname=database_exemplo password=postgres00 sslmode=disable TimeZone=America/Fortaleza
 
 db_type: postgres
+
+boilerplate_secret: "06c056b6f3daac4da9aa982165823443ffe726d9"

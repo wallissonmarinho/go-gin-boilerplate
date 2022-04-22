@@ -64,7 +64,7 @@ func main() {
 	var db *sqlx.DB
 	{
 		var err error
-		db, err = sqlx.Open("postgres", "host=localhost port=5432 user=zintech dbname=zintech password=zintech00 sslmode=disable TimeZone=America/Fortaleza")
+		db, err = sqlx.Open(viper.GetString("db_type"), viper.GetString("db_config"))
 		if err != nil {
 			os.Exit(-1)
 		}
